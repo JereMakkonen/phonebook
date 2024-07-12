@@ -32,9 +32,9 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-    .then(result => { 
+    .then(result => {
       if (!result) throw new Error('Person not found')
-      response.status(204).end() 
+      response.status(204).end()
     })
     .catch(error => next(error))
 })
@@ -51,12 +51,12 @@ app.post('/api/persons', (request, response, next) => {
 app.put('/api/persons/:id', (request, response, next) => {
   const { name, number } = request.body
 
-  Person.findByIdAndUpdate(request.params.id, 
+  Person.findByIdAndUpdate(request.params.id,
     { name, number },
     { new: true, runValidators: true, context: 'query' })
-    .then(person => { 
+    .then(person => {
       if (!person) throw new Error('Person not found')
-      response.json(person) 
+      response.json(person)
     })
     .catch(error => next(error))
 })
